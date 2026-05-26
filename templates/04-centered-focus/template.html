@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0a1e;--bg2:#160c30;--bg3:#1c1245;
+  --accent:#6e35c5;--accent2:#9b59f5;
+  --text:#fff;--muted:#c4b8e8;--sep:rgba(255,255,255,.22)
+}
+html,body{width:100%;height:100%;overflow:hidden;
+  font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+
+.wrap{width:100vw;height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
+
+/* corner accents */
+.geo-tr{position:absolute;top:0;right:0;width:0;height:0;
+  border-top:40vh solid var(--bg2);border-left:32vw solid transparent;z-index:0}
+.geo-bl{position:absolute;bottom:0;left:0;width:0;height:0;
+  border-bottom:38vh solid var(--bg3);border-right:28vw solid transparent;z-index:0}
+/* centre purple glow */
+.glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:50vw;height:60vh;
+  background:radial-gradient(ellipse,rgba(110,53,197,.22) 0%,transparent 70%);
+  z-index:0;pointer-events:none}
+
+/* top row */
+.top{position:relative;z-index:1;display:flex;align-items:center;
+  justify-content:space-between;padding:2.5vh 4.5vw 1.5vh}
+.pill{display:inline-flex;align-items:center;background:var(--accent);
+  font-size:1.2vw;font-weight:600;padding:.38vw 1.3vw;border-radius:100px;white-space:nowrap}
+.pill-outline{display:inline-flex;align-items:center;
+  background:rgba(110,53,197,.28);border:1.5px solid var(--accent2);
+  font-size:1vw;font-weight:600;padding:.3vw 1.1vw;border-radius:100px;white-space:nowrap}
+
+/* content row */
+.content{position:relative;z-index:1;flex:1;display:flex;flex-direction:row;
+  align-items:center;padding:0 4.5vw;gap:3.5vw;min-height:0}
+
+/* photo */
+.photo-col{flex-shrink:0}
+.photo-wrap{position:relative}
+.photo-wrap::before{content:'';position:absolute;inset:-3px;border-radius:1.3vw;
+  background:linear-gradient(135deg,var(--accent2),var(--accent),transparent);z-index:0}
+.photo-wrap img{position:relative;z-index:1;width:24vw;aspect-ratio:1/1;
+  object-fit:cover;object-position:top;border-radius:1.2vw;display:block}
+
+/* text col */
+.text-col{flex:1;display:flex;flex-direction:column;gap:1.5vh;min-width:0}
+.title{font-size:3.8vw;font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.divider{width:5vw;height:2px;background:rgba(255,255,255,.45)}
+.spk-name{font-size:1.8vw;font-weight:700}
+.spk-role{font-size:1.1vw;color:var(--muted);margin-top:.2vh}
+
+/* date section */
+.date-wrap{position:relative;z-index:1;margin:0 4.5vw 1vh}
+.date-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:.9vw;padding:1.4vh 2vw;display:flex;align-items:center;justify-content:center}
+.dc{flex:1;text-align:center;padding:0 1.5vw}
+.dc-sep{width:1px;height:4vh;background:var(--sep);flex-shrink:0}
+.dc .lbl{display:block;font-size:.85vw;color:var(--muted);letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:.1vh}
+.dc .val{display:block;font-size:2.1vw;font-weight:700}
+.dc .val.lg{font-size:2.8vw}
+.time{text-align:center;font-size:1vw;color:var(--muted);margin-top:.5vh}
+
+/* footer */
+.footer{position:relative;z-index:1;display:flex;align-items:center;
+  justify-content:space-between;padding:.4vh 4.5vw 2.2vh;gap:2vw}
+.logo-wrap{width:17vw;flex-shrink:0;line-height:0}
+.logo-wrap svg{width:100%;height:auto;display:block}
+.btn{background:var(--accent);color:#fff;font-family:inherit;font-size:1.2vw;
+  font-weight:600;padding:.65vw 2vw;border-radius:100px;border:none;white-space:nowrap}
+.web{font-size:1vw;color:var(--muted);white-space:nowrap;text-align:right}
+
+/* ── SQUARE ──────────────────────────────── */
+@media(max-aspect-ratio:1/1){
+  .geo-tr{border-top:20vw solid var(--bg2);border-left:18vw solid transparent}
+  .geo-bl{border-bottom:20vw solid var(--bg3);border-right:18vw solid transparent}
+
+  .top{padding:3.5vw 4.5vw 2vw}
+  .pill{font-size:2.8vw;padding:.9vw 2.8vw}
+  .pill-outline{font-size:2.2vw;padding:.7vw 2.2vw}
+
+  .content{flex-direction:row;padding:0 4.5vw;gap:3vw;align-items:center}
+
+  .photo-wrap img{width:28vw}
+
+  .title{font-size:6vw}
+  .spk-name{font-size:3.5vw}
+  .spk-role{font-size:2.6vw}
+  .divider{width:8vw}
+
+  .date-wrap{margin:0 4.5vw .8vw}
+  .dc .lbl{font-size:2vw}
+  .dc .val{font-size:4.5vw}
+  .dc .val.lg{font-size:5.5vw}
+  .time{font-size:2.3vw}
+
+  .logo-wrap{width:30vw}
+  .btn{font-size:2.6vw;padding:1.5vw 4.5vw}
+  .web{font-size:2.2vw}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="geo-tr"></div>
+  <div class="geo-bl"></div>
+  <div class="glow"></div>
+
+  <div class="top">
+    <span class="pill">{{ event_type }}</span>
+    <span class="pill-outline">{{ pdus }}</span>
+  </div>
+
+  <div class="content">
+    <div class="photo-col">
+      <div class="photo-wrap">
+        <img src="{{ speaker_photo }}" alt="{{ speaker_name }}">
+      </div>
+    </div>
+
+    <div class="text-col">
+      <h1 class="title">{{ title }}</h1>
+      <div class="divider"></div>
+      <div class="spk-name">{{ speaker_name }}</div>
+      {% if speaker_title %}<div class="spk-role">{{ speaker_title }}</div>{% endif %}
+    </div>
+  </div>
+
+  <div class="date-wrap">
+    <div class="date-card">
+      <div class="dc"><span class="val">{{ day_of_week }}</span></div>
+      <div class="dc-sep"></div>
+      <div class="dc"><span class="lbl">{{ month }}</span><span class="val lg">{{ day }}</span></div>
+      <div class="dc-sep"></div>
+      <div class="dc"><span class="val">{{ year }}</span></div>
+    </div>
+    <p class="time">{{ time }}</p>
+  </div>
+
+  <div class="footer">
+    <div class="logo-wrap">{{ logo_horizontal | safe }}</div>
+    <button class="btn">Register Now</button>
+    <div class="web">www.pmiuae.org</div>
+  </div>
+</div>
+</body>
+</html>

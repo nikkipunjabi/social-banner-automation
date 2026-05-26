@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0a1e;--bg2:#160c30;--bg3:#1c1245;
+  --accent:#6e35c5;--accent2:#9b59f5;
+  --text:#fff;--muted:#c4b8e8;--sep:rgba(255,255,255,.22)
+}
+html,body{width:100%;height:100%;overflow:hidden;
+  font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+
+.wrap{width:100vw;height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
+
+/* diagonal bg split — lighter purple upper-right */
+.diag{position:absolute;top:0;right:0;width:55vw;height:100vh;
+  background:var(--bg3);
+  clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);
+  z-index:0}
+/* accent glow inside diagonal section */
+.diag-glow{position:absolute;top:5vh;right:2vw;width:38vw;height:55vh;
+  background:radial-gradient(ellipse at top right,rgba(155,89,245,.3) 0%,transparent 65%);
+  z-index:0;pointer-events:none}
+/* thin diagonal accent line */
+.diag-line{position:absolute;top:0;right:0;width:55vw;height:100vh;
+  clip-path:polygon(17% 0,20% 0,2% 100%,0 100%);
+  background:linear-gradient(to bottom,var(--accent2),var(--accent));
+  z-index:1;opacity:.7}
+
+/* content layout */
+.main{position:relative;z-index:2;flex:1;display:flex;flex-direction:row;
+  padding:3vh 4.5vw 1vh;gap:2vw;min-height:0}
+
+/* left: title + info */
+.left{flex:1.1;display:flex;flex-direction:column;justify-content:center;gap:1.8vh;min-width:0}
+
+/* right: photo + speaker */
+.right{flex:.95;display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;padding-top:1vh;gap:1.2vh}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;background:var(--accent);
+  font-size:1.2vw;font-weight:600;padding:.38vw 1.3vw;border-radius:100px;white-space:nowrap;width:fit-content}
+.pill-outline{display:inline-flex;align-items:center;
+  background:rgba(110,53,197,.3);border:1.5px solid var(--accent2);
+  font-size:1vw;font-weight:600;padding:.3vw 1.1vw;border-radius:100px;white-space:nowrap;width:fit-content}
+
+.title{font-size:3.9vw;font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.divider{width:5vw;height:2px;background:rgba(255,255,255,.45)}
+
+/* photo */
+.photo-box{width:100%;max-width:22vw;position:relative}
+/* double-ring effect */
+.photo-box::before{content:'';position:absolute;inset:-4px;border-radius:1.4vw;
+  background:linear-gradient(135deg,var(--accent2) 0%,var(--accent) 50%,transparent 100%);z-index:0}
+.photo-box::after{content:'';position:absolute;inset:-8px;border-radius:1.6vw;
+  background:linear-gradient(135deg,rgba(155,89,245,.3) 0%,transparent 60%);z-index:0}
+.photo-box img{position:relative;z-index:1;width:100%;aspect-ratio:3/4;
+  object-fit:cover;object-position:top;border-radius:1.2vw;display:block}
+
+.spk-name{font-size:1.7vw;font-weight:700;text-align:center}
+.spk-role{font-size:1.05vw;color:var(--muted);text-align:center}
+
+/* date card */
+.date-wrap{position:relative;z-index:2;margin:0 4.5vw 1vh}
+.date-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:.9vw;padding:1.4vh 2vw;display:flex;align-items:center;justify-content:center}
+.dc{flex:1;text-align:center;padding:0 1.5vw}
+.dc-sep{width:1px;height:4vh;background:var(--sep);flex-shrink:0}
+.dc .lbl{display:block;font-size:.85vw;color:var(--muted);letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:.1vh}
+.dc .val{display:block;font-size:2.1vw;font-weight:700}
+.dc .val.lg{font-size:2.8vw}
+.time{text-align:center;font-size:1vw;color:var(--muted);margin-top:.5vh}
+
+/* footer */
+.footer{position:relative;z-index:2;display:flex;align-items:center;
+  justify-content:space-between;padding:.4vh 4.5vw 2.2vh;gap:2vw}
+.logo-wrap{width:17vw;flex-shrink:0;line-height:0}
+.logo-wrap svg{width:100%;height:auto;display:block}
+.btn{background:var(--accent);color:#fff;font-family:inherit;font-size:1.2vw;
+  font-weight:600;padding:.65vw 2vw;border-radius:100px;border:none;white-space:nowrap}
+.web{font-size:1vw;color:var(--muted);white-space:nowrap;text-align:right}
+
+/* ── SQUARE ──────────────────────────────── */
+@media(max-aspect-ratio:1/1){
+  .diag{width:100vw;height:50vh;top:auto;bottom:0;
+    clip-path:polygon(0 35%,100% 0,100% 100%,0 100%)}
+  .diag-glow{width:60vw;height:40vh;top:auto;bottom:5vw;right:0}
+  .diag-line{width:100vw;height:50vh;top:auto;bottom:0;
+    clip-path:polygon(0 33%,100% 0,100% 3%,0 36%)}
+
+  .main{flex-direction:row;padding:4vw 4.5vw 2vw;gap:3vw;align-items:flex-start}
+  .left{flex:1.2;justify-content:flex-start;gap:2vw}
+  .right{flex:.85;padding-top:0}
+
+  .photo-box{max-width:100%}
+  .photo-box img{aspect-ratio:3/4}
+
+  .pill{font-size:2.8vw;padding:.9vw 2.8vw}
+  .pill-outline{font-size:2.2vw;padding:.7vw 2.2vw}
+  .title{font-size:6.2vw}
+  .divider{width:8vw}
+  .spk-name{font-size:3.2vw;text-align:left}
+  .spk-role{font-size:2.5vw;text-align:left}
+
+  .date-wrap{margin:0 4.5vw .8vw}
+  .dc .lbl{font-size:2vw}
+  .dc .val{font-size:4.5vw}
+  .dc .val.lg{font-size:5.5vw}
+  .time{font-size:2.3vw}
+
+  .logo-wrap{width:30vw}
+  .btn{font-size:2.6vw;padding:1.5vw 4.5vw}
+  .web{font-size:2.2vw}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diag"></div>
+  <div class="diag-glow"></div>
+  <div class="diag-line"></div>
+
+  <div class="main">
+    <div class="left">
+      <span class="pill">{{ event_type }}</span>
+      <h1 class="title">{{ title }}</h1>
+      <div class="divider"></div>
+      <span class="pill-outline">{{ pdus }}</span>
+    </div>
+
+    <div class="right">
+      <div class="photo-box">
+        <img src="{{ speaker_photo }}" alt="{{ speaker_name }}">
+      </div>
+      <div class="spk-name">{{ speaker_name }}</div>
+      {% if speaker_title %}<div class="spk-role">{{ speaker_title }}</div>{% endif %}
+    </div>
+  </div>
+
+  <div class="date-wrap">
+    <div class="date-card">
+      <div class="dc"><span class="val">{{ day_of_week }}</span></div>
+      <div class="dc-sep"></div>
+      <div class="dc"><span class="lbl">{{ month }}</span><span class="val lg">{{ day }}</span></div>
+      <div class="dc-sep"></div>
+      <div class="dc"><span class="val">{{ year }}</span></div>
+    </div>
+    <p class="time">{{ time }}</p>
+  </div>
+
+  <div class="footer">
+    <div class="logo-wrap">{{ logo_horizontal | safe }}</div>
+    <button class="btn">Register Now</button>
+    <div class="web">www.pmiuae.org</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0a1e;--bg2:#160c30;--bg3:#1c1245;
+  --accent:#6e35c5;--accent2:#9b59f5;
+  --text:#fff;--muted:#c4b8e8;--sep:rgba(255,255,255,.22)
+}
+html,body{width:100%;height:100%;overflow:hidden;
+  font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+
+.wrap{width:100vw;height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:row;align-items:stretch}
+
+/* left accent bar */
+.bar{width:.4vw;background:linear-gradient(to bottom,var(--accent2),var(--accent));flex-shrink:0}
+
+/* logo column */
+.col-logo{width:20vw;flex-shrink:0;background:var(--bg2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:0 2vw;gap:2.5vh;position:relative;z-index:1}
+.col-logo::after{content:'';position:absolute;right:0;top:8%;height:84%;
+  width:1px;background:rgba(255,255,255,.12)}
+.logo-wrap{width:85%;line-height:0}
+.logo-wrap svg{width:100%;height:auto;display:block}
+.pill-sm{display:inline-flex;align-items:center;background:var(--accent);
+  font-size:1vw;font-weight:600;padding:.35vw 1.2vw;border-radius:100px;white-space:nowrap}
+.web-sm{font-size:.85vw;color:var(--muted);text-align:center}
+
+/* centre column */
+.col-mid{flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:3vh 3vw 3vh 3.5vw;gap:1.6vh;position:relative;z-index:1;min-width:0}
+
+.pill{display:inline-flex;align-items:center;background:var(--accent);
+  font-size:1.15vw;font-weight:600;padding:.38vw 1.3vw;border-radius:100px;white-space:nowrap;width:fit-content}
+.pill-outline{display:inline-flex;align-items:center;
+  background:rgba(110,53,197,.28);border:1.5px solid var(--accent2);
+  font-size:1vw;font-weight:600;padding:.3vw 1.1vw;border-radius:100px;white-space:nowrap;width:fit-content}
+
+.title{font-size:3.4vw;font-weight:800;line-height:1.18;letter-spacing:-.02em}
+.divider{width:4vw;height:2px;background:rgba(255,255,255,.45)}
+
+/* date row */
+.date-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:.7vw;padding:1.1vh 1.5vw;display:inline-flex;align-items:center;gap:0}
+.dc{text-align:center;padding:0 1.4vw}
+.dc-sep{width:1px;height:3.5vh;background:var(--sep);flex-shrink:0}
+.dc .lbl{display:block;font-size:.75vw;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.1vh}
+.dc .val{display:block;font-size:1.7vw;font-weight:700}
+.dc .val.lg{font-size:2.4vw}
+.time{font-size:.9vw;color:var(--muted);margin-top:.3vh}
+
+/* right column — speaker */
+.col-spk{width:24vw;flex-shrink:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:2vh 2.5vw 2vh 1vw;
+  position:relative;z-index:1;gap:1.2vh}
+.col-spk::before{content:'';position:absolute;left:0;top:8%;height:84%;
+  width:1px;background:rgba(255,255,255,.12)}
+.photo-box{width:12vw}
+.photo-box img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top;
+  border-radius:.9vw;display:block;
+  box-shadow:0 0 0 2px rgba(155,89,245,.35),0 6px 24px rgba(0,0,0,.5)}
+.spk-name{font-size:1.4vw;font-weight:700;text-align:center}
+.spk-role{font-size:.9vw;color:var(--muted);text-align:center}
+.btn{background:var(--accent);color:#fff;font-family:inherit;font-size:1vw;
+  font-weight:600;padding:.55vw 1.8vw;border-radius:100px;border:none;white-space:nowrap;margin-top:.5vh}
+
+/* ── SQUARE ──────────────────────────────── */
+@media(max-aspect-ratio:1/1){
+  .wrap{flex-direction:column}
+  .bar{width:100%;height:.5vw;background:linear-gradient(to right,var(--accent2),var(--accent))}
+
+  .col-logo{width:100%;height:auto;flex-direction:row;justify-content:space-between;
+    padding:3vw 5vw;gap:3vw;background:var(--bg2)}
+  .col-logo::after{display:none}
+  .logo-wrap{width:38vw}
+  .pill-sm{font-size:2.2vw;padding:.7vw 2.2vw}
+  .web-sm{font-size:2vw}
+
+  .col-mid{padding:3vw 5vw;gap:2vw}
+  .pill{font-size:2.6vw;padding:.8vw 2.5vw}
+  .pill-outline{font-size:2.2vw;padding:.6vw 2vw}
+  .title{font-size:7vw}
+  .divider{width:8vw}
+
+  .date-card{padding:1.5vw 2vw;border-radius:1.5vw}
+  .dc .lbl{font-size:1.8vw}
+  .dc .val{font-size:4vw}
+  .dc .val.lg{font-size:5vw}
+  .time{font-size:2.2vw}
+
+  .col-spk{width:100%;flex-direction:row;padding:0 5vw 4vw;gap:4vw}
+  .col-spk::before{display:none}
+  .photo-box{width:22vw}
+  .photo-box img{aspect-ratio:1/1}
+  .spk-name{font-size:3.5vw;text-align:left}
+  .spk-role{font-size:2.5vw;text-align:left}
+  .btn{font-size:2.5vw;padding:1.3vw 4vw}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar"></div>
+
+  <!-- logo column -->
+  <div class="col-logo">
+    <div class="logo-wrap">{{ logo_horizontal | safe }}</div>
+    <span class="pill-sm">{{ event_type }}</span>
+    <span class="pill-sm" style="background:rgba(110,53,197,.28);border:1.5px solid var(--accent2);">{{ pdus }}</span>
+    <div class="web-sm">www.pmiuae.org</div>
+  </div>
+
+  <!-- centre: title + date -->
+  <div class="col-mid">
+    <h1 class="title">{{ title }}</h1>
+    <div class="divider"></div>
+    <div class="date-card">
+      <div class="dc"><span class="val">{{ day_of_week }}</span></div>
+      <div class="dc-sep"></div>
+      <div class="dc"><span class="lbl">{{ month }}</span><span class="val lg">{{ day }}</span></div>
+      <div class="dc-sep"></div>
+      <div class="dc"><span class="val">{{ year }}</span></div>
+    </div>
+    <p class="time">{{ time }}</p>
+  </div>
+
+  <!-- speaker column -->
+  <div class="col-spk">
+    <div class="photo-box">
+      <img src="{{ speaker_photo }}" alt="{{ speaker_name }}">
+    </div>
+    <div>
+      <div class="spk-name">{{ speaker_name }}</div>
+      {% if speaker_title %}<div class="spk-role">{{ speaker_title }}</div>{% endif %}
+      <button class="btn">Register Now</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
