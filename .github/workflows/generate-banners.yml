@@ -1,0 +1,69 @@
+name: Generate Webinar Banners
+
+on:
+  workflow_dispatch:
+    inputs:
+      event_title:
+        description: "Event Title"
+        required: true
+      event_date:
+        description: "Event Date (YYYY-MM-DD, e.g. 2026-05-21)"
+        required: true
+      speaker_name:
+        description: "Speaker Full Name"
+        required: true
+      speaker_title:
+        description: "Speaker Title / Position (optional)"
+        required: false
+        default: ""
+      event_type:
+        description: "Event Type Label"
+        required: true
+        default: "Online Webinar"
+      event_time:
+        description: "Event Time"
+        required: true
+        default: "7:30 PM - 8:45 PM (GMT +4)"
+      event_pdus:
+        description: "PDU Text"
+        required: true
+        default: "Earn 2 PDUs"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browser
+        run: |
+          playwright install chromium
+          playwright install-deps chromium
+
+      - name: Generate banners
+        env:
+          EVENT_TITLE:    ${{ github.event.inputs.event_title }}
+          EVENT_DATE:     ${{ github.event.inputs.event_date }}
+          SPEAKER_NAME:   ${{ github.event.inputs.speaker_name }}
+          SPEAKER_TITLE:  ${{ github.event.inputs.speaker_title }}
+          EVENT_TYPE:     ${{ github.event.inputs.event_type }}
+          EVENT_TIME:     ${{ github.event.inputs.event_time }}
+          EVENT_PDUS:     ${{ github.event.inputs.event_pdus }}
+        run: python generate.py
+
+      - name: Upload banners as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: webinar-banners
+          path: output/
+          retention-days: 30
