@@ -51,15 +51,15 @@ jobs:
           playwright install-deps chromium
 
       - name: Generate banners
-        env:
-          EVENT_TITLE:    ${{ github.event.inputs.event_title }}
-          EVENT_DATE:     ${{ github.event.inputs.event_date }}
-          SPEAKER_NAME:   ${{ github.event.inputs.speaker_name }}
-          SPEAKER_TITLE:  ${{ github.event.inputs.speaker_title }}
-          EVENT_TYPE:     ${{ github.event.inputs.event_type }}
-          EVENT_TIME:     ${{ github.event.inputs.event_time }}
-          EVENT_PDUS:     ${{ github.event.inputs.event_pdus }}
         run: python generate.py
+        env:
+          EVENT_TITLE: "${{ inputs.event_title }}"
+          EVENT_DATE: "${{ inputs.event_date }}"
+          SPEAKER_NAME: "${{ inputs.speaker_name }}"
+          SPEAKER_TITLE: "${{ inputs.speaker_title }}"
+          EVENT_TYPE: "${{ inputs.event_type }}"
+          EVENT_TIME: "${{ inputs.event_time }}"
+          EVENT_PDUS: "${{ inputs.event_pdus }}"
 
       - name: Upload banners as artifact
         uses: actions/upload-artifact@v4
